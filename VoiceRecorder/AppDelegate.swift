@@ -1,11 +1,3 @@
-//
-//  AppDelegate.swift
-//  VoiceRecorder
-//
-//  Created by 垰尚太朗 on 2018/11/26.
-//  Copyright © 2018 垰尚太朗. All rights reserved.
-//
-
 import UIKit
 
 @UIApplicationMain

@@ -1,0 +1,24 @@
+PODS:
+  - AudioKit/Core (4.5.4)
+  - Reusable (4.0.4):
+    - Reusable/Storyboard (= 4.0.4)
+    - Reusable/View (= 4.0.4)
+  - Reusable/Storyboard (4.0.4)
+  - Reusable/View (4.0.4)
+
+DEPENDENCIES:
+  - AudioKit/Core
+  - Reusable
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - AudioKit
+    - Reusable
+
+SPEC CHECKSUMS:
+  AudioKit: af3f5b73e22f85f3cd03076fea8afbb9658f0938
+  Reusable: 7fc772097df3e5fc86f59d8a7af9708e49b5ff55
+
+PODFILE CHECKSUM: 0773207ea886cb613fae426e879fbf99d63680d9
+
+COCOAPODS: 1.5.3

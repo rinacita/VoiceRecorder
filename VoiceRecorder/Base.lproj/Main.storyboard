@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -15,55 +15,59 @@
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="VoiceRecorder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="MxD-Ol-WDd">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="512"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexBackgroundColor" red="0.34480482340000002" green="0.33878564830000002" blue="0.81184124950000003" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                            </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a0Q-AV-Lf7">
-                                <rect key="frame" x="0.0" y="512" width="375" height="155"/>
-                                <color key="backgroundColor" red="0.91852045059999998" green="0.2690816224" blue="0.35287460679999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lp8-jV-zdV">
+                                <rect key="frame" x="257.66666666666669" y="688" width="52" height="52"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="155" id="Aoc-VB-t5p"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="155" id="Okd-Ft-fD3"/>
+                                    <constraint firstAttribute="width" constant="52" id="Lw3-Qg-RH7"/>
+                                    <constraint firstAttribute="height" constant="52" id="xsE-sX-7gF"/>
                                 </constraints>
-                                <state key="normal" image="Rec"/>
+                                <state key="normal" title="Button" image="Stop"/>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="00:00:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ldP-or-cIL">
-                                <rect key="frame" x="152" y="612" width="71.5" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xGk-My-2Ad">
+                                <rect key="frame" x="65.666666666666671" y="688" width="52" height="52"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="52" id="87G-EQ-2IE"/>
+                                    <constraint firstAttribute="height" constant="52" id="HMV-zj-Ug7"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Start"/>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="m18-xA-3ZU">
+                                <rect key="frame" x="149.66666666666666" y="676" width="76" height="76"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="76" id="CXR-Yj-5qp"/>
+                                    <constraint firstAttribute="width" constant="76" id="uJJ-89-YeG"/>
+                                </constraints>
+                                <state key="normal" title="Button" image="Mic"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="a0Q-AV-Lf7" firstAttribute="top" secondItem="MxD-Ol-WDd" secondAttribute="bottom" id="AaS-CI-b5z"/>
-                            <constraint firstItem="a0Q-AV-Lf7" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="Aei-0D-nIU"/>
-                            <constraint firstItem="a0Q-AV-Lf7" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="ORG-LO-qf1"/>
-                            <constraint firstItem="ldP-or-cIL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="XI6-KK-A3C"/>
-                            <constraint firstItem="MxD-Ol-WDd" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Y6j-4y-sBS"/>
-                            <constraint firstAttribute="bottom" secondItem="ldP-or-cIL" secondAttribute="bottom" constant="34" id="YIf-I0-rd0"/>
-                            <constraint firstItem="MxD-Ol-WDd" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="hgs-7s-c6V"/>
-                            <constraint firstItem="MxD-Ol-WDd" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="mdH-R2-v33"/>
-                            <constraint firstItem="a0Q-AV-Lf7" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="siF-Z2-Amb"/>
+                            <constraint firstItem="xGk-My-2Ad" firstAttribute="centerY" secondItem="m18-xA-3ZU" secondAttribute="centerY" id="8b5-my-Ret"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="m18-xA-3ZU" secondAttribute="bottom" constant="26" id="CgV-7z-5xY"/>
+                            <constraint firstItem="m18-xA-3ZU" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="R5W-p7-opa"/>
+                            <constraint firstItem="m18-xA-3ZU" firstAttribute="leading" secondItem="xGk-My-2Ad" secondAttribute="trailing" constant="32" id="WyP-3w-R73"/>
+                            <constraint firstItem="lp8-jV-zdV" firstAttribute="leading" secondItem="m18-xA-3ZU" secondAttribute="trailing" constant="32" id="aia-Rr-S4k"/>
+                            <constraint firstItem="lp8-jV-zdV" firstAttribute="centerY" secondItem="m18-xA-3ZU" secondAttribute="centerY" id="hqA-Nv-yaP"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
-                        <outlet property="functionButton" destination="a0Q-AV-Lf7" id="EoS-0k-7dq"/>
-                        <outlet property="tableView" destination="MxD-Ol-WDd" id="2W8-kX-FVd"/>
-                        <outlet property="timeLabel" destination="ldP-or-cIL" id="Ve8-vD-DZf"/>
+                        <outlet property="audioButton" destination="m18-xA-3ZU" id="0iK-Mf-n0S"/>
+                        <outlet property="playButton" destination="xGk-My-2Ad" id="4i6-eX-vmk"/>
+                        <outlet property="stopButton" destination="lp8-jV-zdV" id="zL4-Re-PVf"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="136.80000000000001" y="132.26600985221674"/>
         </scene>
     </scenes>
     <resources>
-        <image name="Rec" width="44" height="44"/>
+        <image name="Mic" width="76" height="76"/>
+        <image name="Start" width="52" height="52"/>
+        <image name="Stop" width="52" height="52"/>
     </resources>
 </document>
