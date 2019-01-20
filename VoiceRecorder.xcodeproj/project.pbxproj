@@ -18,8 +18,8 @@
 		5A64414F21ABE53B00E570CA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 5A64414E21ABE53B00E570CA /* Assets.xcassets */; };
 		5A64415221ABE53B00E570CA /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5A64415021ABE53B00E570CA /* LaunchScreen.storyboard */; };
 		5A64415A21ABE55C00E570CA /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A64415921ABE55C00E570CA /* Extension.swift */; };
+		5A853ECC21E9B44F00AD1A18 /* Engine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A853ECB21E9B44F00AD1A18 /* Engine.swift */; };
 		5AC8D1E221CF344500F36B76 /* WaveView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AC8D1E121CF344500F36B76 /* WaveView.xib */; };
-		5AC8D1E421CF86F400F36B76 /* AudioRecorder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5AC8D1E321CF86F400F36B76 /* AudioRecorder.swift */; };
 		BC3832E174068824C72D7576 /* Pods_VoiceRecorder.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38C3E5B5BB2C6EB86BD8F9AD /* Pods_VoiceRecorder.framework */; };
 /* End PBXBuildFile section */
 
@@ -38,8 +38,8 @@
 		5A64415121ABE53B00E570CA /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		5A64415321ABE53B00E570CA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5A64415921ABE55C00E570CA /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
+		5A853ECB21E9B44F00AD1A18 /* Engine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Engine.swift; sourceTree = "<group>"; };
 		5AC8D1E121CF344500F36B76 /* WaveView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WaveView.xib; sourceTree = "<group>"; };
-		5AC8D1E321CF86F400F36B76 /* AudioRecorder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AudioRecorder.swift; sourceTree = "<group>"; };
 		9DCD7759229C791FC31D0597 /* Pods-VoiceRecorder.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.debug.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.debug.xcconfig"; sourceTree = "<group>"; };
 		A01234F05D3EF8F3AD36073D /* Pods-VoiceRecorder.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-VoiceRecorder.release.xcconfig"; path = "Pods/Target Support Files/Pods-VoiceRecorder/Pods-VoiceRecorder.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -101,7 +101,7 @@
 				5A64414721ABE53A00E570CA /* AppDelegate.swift */,
 				5A64414921ABE53A00E570CA /* ViewController.swift */,
 				5A64414B21ABE53A00E570CA /* Main.storyboard */,
-				5AC8D1E321CF86F400F36B76 /* AudioRecorder.swift */,
+				5A853ECB21E9B44F00AD1A18 /* Engine.swift */,
 				5A56AD1A21CE2E32004FCDDB /* Wave */,
 				5A56AD1721CE2B7C004FCDDB /* Extension */,
 				5A64414E21ABE53B00E570CA /* Assets.xcassets */,
@@ -252,12 +252,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				5A56AD1F21CE2E5F004FCDDB /* WaveCollectionViewCell.swift in Sources */,
-				5AC8D1E421CF86F400F36B76 /* AudioRecorder.swift in Sources */,
 				5A56AD2221CE324A004FCDDB /* WaveView.swift in Sources */,
 				5A64415A21ABE55C00E570CA /* Extension.swift in Sources */,
 				5A56AD1621CE27D0004FCDDB /* WaveViewController.swift in Sources */,
 				5A64414A21ABE53A00E570CA /* ViewController.swift in Sources */,
 				5A64414821ABE53A00E570CA /* AppDelegate.swift in Sources */,
+				5A853ECC21E9B44F00AD1A18 /* Engine.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

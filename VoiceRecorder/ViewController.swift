@@ -3,95 +3,112 @@ import Reusable
 import UIKit
 
 final class ViewController: UIViewController, StoryboardBased {
-    
-    @IBOutlet weak var stopButton: UIButton! {
+    @IBOutlet var stopButton: UIButton! {
         didSet {
             stopButton.clipsToBounds = true
             stopButton.layer.cornerRadius = 26
             stopButton.addTarget(self, action: #selector(stopFunction), for: .touchUpInside)
+            stopButton.setImage(#imageLiteral(resourceName: "Stop"), for: .normal)
+            stopButton.setImage(#imageLiteral(resourceName: "Stop-gray"), for: .disabled)
         }
     }
-    @IBOutlet weak var playButton: UIButton! {
+
+    @IBOutlet var playButton: UIButton! {
         didSet {
             playButton.clipsToBounds = true
             playButton.layer.cornerRadius = 26
             playButton.addTarget(self, action: #selector(playFunction), for: .touchUpInside)
+            playButton.setImage(#imageLiteral(resourceName: "Start"), for: .normal)
+            playButton.setImage(#imageLiteral(resourceName: "Start-gray"), for: .disabled)
+//            playButton.setImage(#imageLiteral(resourceName: "StartPause"), for: .focused)
         }
     }
-    @IBOutlet weak var audioButton: UIButton! {
+
+    @IBOutlet var audioButton: UIButton! {
         didSet {
             audioButton.clipsToBounds = true
             audioButton.layer.cornerRadius = 38
             audioButton.addTarget(self, action: #selector(audioFunction), for: .touchUpInside)
+            audioButton.setImage(#imageLiteral(resourceName: "Mic"), for: .normal)
+            audioButton.setImage(#imageLiteral(resourceName: "Mic-gray"), for: .disabled)
+//            audioButton.setImage(#imageLiteral(resourceName: "MicPause"), for: .focused)
         }
     }
     
-    var audioRecorder: AudioRecorder!
+    @IBOutlet weak var waveView: WaveView! {
+        didSet {
+            waveView.delegate = self
+        }
+    }
+
+    var audioRecorder: Engine!
     
+    var nowTime: Int64? = nil
+    
+    var cellIndex: Int? = nil
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        audioRecorder = AudioRecorder(playerCompleated: {
-            self.audioRecorder.state = .pauseRecording
-            self.playButton.setImage(#imageLiteral(resourceName: "Start"), for: .normal)
-        })
-        
+        if AVCaptureDevice.authorizationStatus(for: AVMediaType.audio) != .authorized {
+            AVCaptureDevice.requestAccess(for: AVMediaType.audio,
+                                          completionHandler: { (granted: Bool) in
+            })
+        }
+
+        audioRecorder = Engine(finishPlaying: finishPlaying, trackMic: trackMic)
     }
     
+    func trackMic(aaa: Double) {
+        waveView.addWave(wave: CGFloat(aaa) * 2)
+    }
+
     @objc func stopFunction() {
-        
+        print("STOP PLAY")
     }
-    
+
     @objc func playFunction() {
-        switch audioRecorder.state {
-        case .pauseRecording:
+        if audioRecorder.state == .readyToPlay {
+            audioRecorder.startPlay()
             playButton.setImage(#imageLiteral(resourceName: "StartPause"), for: .normal)
-            audioRecorder.startPlayer()
-            audioRecorder.state = .playing
-        case .playing:
+        } else if audioRecorder.state == .playing {
+            audioRecorder.stopPlay()
             playButton.setImage(#imageLiteral(resourceName: "Start"), for: .normal)
-            audioRecorder.stopPlayer()
-            audioRecorder.state = .pauseRecording
-        default:
-            return
         }
     }
     
+    func finishPlaying() {
+        playButton.setImage(#imageLiteral(resourceName: "Start"), for: .normal)
+    }
+
     @objc func audioFunction() {
-        
-        switch audioRecorder.state {
-        case .readyToRecord:
+        if audioRecorder.state == .readyToRecord || audioRecorder.state == .readyToPlay {
+            if let cellIndex = cellIndex {
+                waveView.remove(from: cellIndex) {
+                    self.cellIndex = nil
+                }
+            }
+            audioRecorder.startRec()
+            playButton.isEnabled = false
+            stopButton.isEnabled = false
             audioButton.setImage(#imageLiteral(resourceName: "MicPause"), for: .normal)
-            audioRecorder.startRecord()
-            audioRecorder.state = .recording
-        case .recording:
+            waveView.collectionView.isScrollEnabled = false
+        } else if audioRecorder.state == .recording {
+            waveView.collectionView.isScrollEnabled = true
+            audioRecorder.stopRec(at: nowTime)
+            nowTime = nil
+            playButton.isEnabled = true
+            stopButton.isEnabled = true
             audioButton.setImage(#imageLiteral(resourceName: "Mic"), for: .normal)
-            audioRecorder.stopRecord()
-            audioRecorder.state = .pauseRecording
-            audioRecorder.saveRecord()
-        case .pauseRecording:
-            audioButton.setImage(#imageLiteral(resourceName: "MicPause"), for: .normal)
-            audioRecorder.startOverrideRecord()
-            audioRecorder.state = .overRecording
-        case .overRecording:
-            audioButton.setImage(#imageLiteral(resourceName: "Mic"), for: .normal)
-            audioRecorder.stopOverrideRecord()
-            audioRecorder.state = .pauseRecording
-        default:
-            return
         }
     }
+}
+
+extension ViewController: WaveViewDelegate {
     
-    func getDocumentsDirectory() -> URL {
-        let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-        let documentsDirectory = paths[0]
-        return documentsDirectory
-    }
-    
-    func getFileUrl(name: String) -> URL {
-        let filename = name + ".m4a"
-        let filePath = getDocumentsDirectory().appendingPathComponent(filename)
-        return filePath
+    func timeChanged(time: CGFloat) {
+        nowTime = Int64(time * 44100)
+        cellIndex = Int(time / 0.1)
     }
     
 }

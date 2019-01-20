@@ -2,12 +2,11 @@ import Reusable
 import UIKit
 
 final class WaveCollectionViewCell: UICollectionViewCell, NibReusable {
-    
     enum State {
         case Recording
         case Paused
     }
-    
+
     var waveState: State = .Recording {
         didSet {
             switch waveState {
@@ -18,16 +17,15 @@ final class WaveCollectionViewCell: UICollectionViewCell, NibReusable {
             }
         }
     }
-    
+
     var value: CGFloat = 0 {
         didSet {
-            let height = self.frame.height * value
+            let height = frame.height * value
             lineHeightConstraint.constant = height
         }
     }
-    
-    @IBOutlet weak var lineHeightConstraint: NSLayoutConstraint!
-    
-    @IBOutlet weak var line: UIView!
 
+    @IBOutlet var lineHeightConstraint: NSLayoutConstraint!
+
+    @IBOutlet var line: UIView!
 }
