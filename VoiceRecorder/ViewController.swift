@@ -69,6 +69,7 @@ final class ViewController: UIViewController, StoryboardBased {
 
     @objc func playFunction() {
         if audioRecorder.state == .readyToPlay {
+            waveView.play()
             audioRecorder.startPlay()
             playButton.setImage(#imageLiteral(resourceName: "StartPause"), for: .normal)
         } else if audioRecorder.state == .playing {
@@ -106,7 +107,17 @@ final class ViewController: UIViewController, StoryboardBased {
 
 extension ViewController: WaveViewDelegate {
     
+    func timeChangeBegin() {
+        audioRecorder.stopPlay()
+    }
+    
+    func timeChnageEnd() {
+        audioRecorder.startPlay(at: nowTime)
+        waveView.play()
+    }
+    
     func timeChanged(time: CGFloat) {
+        
         nowTime = Int64(time * 44100)
         cellIndex = Int(time / 0.1)
     }

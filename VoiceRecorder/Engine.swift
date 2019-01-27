@@ -80,8 +80,6 @@ class Engine {
         }
     }
     
-    
-    
     func startRec() {
 //        infoLabel.text = "Recording"
 //        mainButton.setTitle("Stop", for: .normal)
@@ -130,21 +128,20 @@ class Engine {
         setupUIForPlaying()
     }
     
-    func startPlay() {
+    func startPlay(at: Int64? = nil) {
+        let startTime = Double(at ?? 0) / 44100
+        player.startTime = startTime
         player.play()
         state = .playing
-//        plot?.node = player
     }
     
     func stopPlay() {
         player.stop()
         setupUIForPlaying()
-//        plot?.node = mic
     }
     
     func reset() {
         player.stop()
-//        plot?.node = mic
         do {
             try recorder.reset()
         } catch { AKLog("Errored resetting.") }
