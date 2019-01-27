@@ -70,7 +70,7 @@ final class ViewController: UIViewController, StoryboardBased {
     @objc func playFunction() {
         if audioRecorder.state == .readyToPlay {
             waveView.play()
-            audioRecorder.startPlay()
+            audioRecorder.startPlay(at: nowTime)
             playButton.setImage(#imageLiteral(resourceName: "StartPause"), for: .normal)
         } else if audioRecorder.state == .playing {
             audioRecorder.stopPlay()
@@ -103,17 +103,25 @@ final class ViewController: UIViewController, StoryboardBased {
             audioButton.setImage(#imageLiteral(resourceName: "Mic"), for: .normal)
         }
     }
+    
+    var startAfterDrag = false
 }
 
 extension ViewController: WaveViewDelegate {
     
+    
     func timeChangeBegin() {
-        audioRecorder.stopPlay()
+        if audioRecorder.player.isPlaying {
+            startAfterDrag = true
+            audioRecorder.stopPlay()
+        }
     }
     
     func timeChnageEnd() {
-        audioRecorder.startPlay(at: nowTime)
-        waveView.play()
+        if startAfterDrag {
+            audioRecorder.startPlay(at: nowTime)
+            waveView.play()
+        }
     }
     
     func timeChanged(time: CGFloat) {
