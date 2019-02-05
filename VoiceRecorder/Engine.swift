@@ -135,6 +135,10 @@ class Engine {
         state = .playing
     }
     
+    func pausePlay() {
+        player.stop()
+    }
+    
     func stopPlay() {
         player.stop()
         setupUIForPlaying()

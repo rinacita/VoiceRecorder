@@ -2,16 +2,17 @@ import Reusable
 import UIKit
 
 protocol WaveViewDelegate {
-    func timeChanged(time: CGFloat)
+//    func timeChanged(time: CGFloat)
     func timeChangeBegin()
     func timeChnageEnd()
 }
 
 final class WaveView: UIView, NibOwnerLoadable {
-    var lineWidth: CGFloat = 2
-    var linePadding: CGFloat = 1
+    var lineWidth: CGFloat = 4 // moto 2
+    var linePadding: CGFloat = 3 // moto 1
     private var playTimer: Timer?
     var delegate: WaveViewDelegate?
+    var now: CGFloat = 0
 
     @IBOutlet var collectionView: UICollectionView! {
         didSet {
@@ -40,6 +41,7 @@ final class WaveView: UIView, NibOwnerLoadable {
         let newIndexPath = IndexPath(item: 0, section: 0)
         waves.insert(wave, at: 0)
         collectionView.insertItems(at: [newIndexPath])
+        setNow()
     }
 
     func reset() {
@@ -47,22 +49,23 @@ final class WaveView: UIView, NibOwnerLoadable {
         collectionView.reloadData()
     }
     
-    func remove(from: Int, complet: (() -> Void)?) {
+    func remove(from: Int, complet: (() -> Void)? = nil) {
         if !waves.isEmpty && from != (waves.count - 1) {
             waves = Array(waves[(waves.count - from)..<waves.count])
             collectionView.reloadData()
-            collectionView.contentOffset = CGPoint(x: 0, y: waves.count * 2 + waves.count - 1)
+            collectionView.contentOffset = CGPoint(x: 0, y: CGFloat(waves.count) * lineWidth + CGFloat(waves.count) * linePadding - linePadding)
             self.layoutIfNeeded()
-            complet?()
+            setNow()
+            complet?()s
         }
     }
     
     func play() {
         isScrollManually = false
         
-        if collectionView.contentOffset.x <= 0 || collectionView.contentOffset.x > CGFloat(2 * waves.count + waves.count - 1) {
+        if collectionView.contentOffset.x <= 0 || collectionView.contentOffset.x > lineWidth * CGFloat(waves.count) + CGFloat(waves.count) * linePadding - linePadding {
             
-            collectionView.contentOffset = CGPoint(x: (2 * waves.count + waves.count - 1), y: 0)
+            collectionView.contentOffset = CGPoint(x: (lineWidth * CGFloat(waves.count) + CGFloat(waves.count) * linePadding - linePadding), y: 0)
         }
         
         playTimer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(animateCell), userInfo: nil, repeats: true)
@@ -72,7 +75,7 @@ final class WaveView: UIView, NibOwnerLoadable {
     
     @objc func animateCell() {
         isScrollManually = false
-        var offsetX = self.collectionView.contentOffset.x - 3
+        var offsetX = self.collectionView.contentOffset.x - (lineWidth + linePadding)
         UIView.animate(withDuration: 0.1, delay: 0, options: .allowUserInteraction, animations: {
             if offsetX < 0 {
                 offsetX = 0
@@ -84,7 +87,16 @@ final class WaveView: UIView, NibOwnerLoadable {
         if offsetX == 0 {
             playTimer?.invalidate()
         }
-        
+    }
+    
+    private func setNow() {
+        var time = (collectionView.contentSize.width - collectionView.frame.width - collectionView.contentOffset.x)
+        time = time.isNaN ? 0 : time
+        let insideAll = (collectionView.contentSize.width - collectionView.frame.width)
+        var realTime = floor(time * CGFloat(waves.count) / insideAll) * 0.1
+        realTime = realTime.isNaN ? 0 : realTime
+        now = realTime
+        print(now)
     }
 }
 
@@ -104,20 +116,12 @@ extension WaveView: UICollectionViewDataSource {
 }
 
 extension WaveView: UICollectionViewDelegate {
-    func collectionView(_: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print(indexPath)
-    }
-
+    
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         if isScrollManually {
             playTimer?.invalidate()
             
-            var time = (scrollView.contentSize.width - scrollView.frame.width - scrollView.contentOffset.x)
-            time = time.isNaN ? 0 : time
-            let insideAll = (scrollView.contentSize.width - scrollView.frame.width)
-            var realTime = floor(time * CGFloat(waves.count) / insideAll) * 0.1
-            realTime = realTime.isNaN ? 0 : realTime
-            delegate?.timeChanged(time: realTime)
+            setNow()
         }
     }
     
